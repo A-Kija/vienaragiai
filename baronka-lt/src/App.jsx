@@ -18,8 +18,11 @@ function App() {
 
   useEffect(() => {
 
-      axios.get('http://baronka.lt/api/home')
-      .then(res => setList(res.data))
+      axios.get('http://baronka.lt/api/home1')
+      .then(res => {
+        console.log(res);
+        setList(res.data)
+      })
 
   }, []);
 

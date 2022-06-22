@@ -12,7 +12,7 @@ class App {
         public static function start() {
             session_start();
             header('Access-Control-Allow-Origin: *');
-            header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
+            header('Access-Control-Allow-Methods: OPTIONS, GET, POST, DELETE, PUT');
             header("Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With");
             header('Content-Type: application/json');
             Messages::init();
@@ -121,14 +121,23 @@ class App {
                 return (new HomeController)->indexJson();
             }
 
-            if ('POST' == $m && count($uri) == 2 && $uri[0] === 'api' && $uri[1] === 'form') {
-                return (new HomeController)->formJson();
+
+            
+            
+            // die('sdfsdfsdf');
+            if (count($uri) == 2 && $uri[0] === 'api' && $uri[1] === 'form') {
+                if ('POST' == $m){
+                    return (new HomeController)->formJson();   
+                }
+                else {
+                    // print_r(debug_backtrace());
+                    // http_response_code(405);
+                }
             }
 
-
-
             else {
-                App::json('kitka');
+                http_response_code(404);
+                App::json(['error' => 'OK']);
             }
 
         }
