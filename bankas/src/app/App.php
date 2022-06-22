@@ -132,6 +132,7 @@ class App {
                 else {
                     // print_r(debug_backtrace());
                     // http_response_code(405);
+                    App::json(['error' => 'OK']);
                 }
             }
 
