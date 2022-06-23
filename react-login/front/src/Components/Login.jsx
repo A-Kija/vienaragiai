@@ -4,7 +4,7 @@ import { useState } from "react";
 import { authConfig, login } from "../Functions/auth";
 
 
-function Login() {
+function Login({setRefresh}) {
 
     const [loginData, setLoginData] = useState(null);
     const [name, setName] = useState('');
@@ -21,10 +21,11 @@ function Login() {
         .then(res => {
             if (res.data.token) {
                 login(res.data.token);
+                setRefresh(r => !r);
             }
             console.log(res.data)
         });
-    },[loginData])
+    }, [loginData, setRefresh])
 
     return (
         <>

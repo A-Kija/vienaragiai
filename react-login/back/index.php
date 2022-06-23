@@ -12,11 +12,34 @@ header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
 header("Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With");
 header('Content-Type: application/json');
 
+function getUser() {
+    $token = apache_request_headers()['Authorization'] ?? '';
+    if ($token === '') {
+        return null;
+    }
+    $db = new JsonDb('us');
+    $users = $db->showAll();
+    foreach($users as $user) {
+        if ($user['session'] == $token) {
+            return $user;
+        }
+    }
+    return null;
+}
 
+if ($_GET['url'] == 'auth') {
+    $user = getUser();
+    if ($user) {
+        echo json_encode(['user' => $user]);
+    }
+    else {
+        echo json_encode(['msg' => 'Not logged']);
+    }
+}
 
 if ($_GET['url'] == 'home') {
 
-    if ('lalala-bebras' == apache_request_headers()['Authorization']) {
+    if (getUser()) {
         echo json_encode([
             'Daiktas Nr. 32',
             'Puodas',
