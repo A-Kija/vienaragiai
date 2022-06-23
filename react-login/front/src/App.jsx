@@ -4,7 +4,7 @@ import './App.css';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import axios from "axios";
-import { authConfig } from './Functions/auth';
+import { authConfig, logout } from './Functions/auth';
 
 function App() {
 
@@ -16,6 +16,10 @@ function App() {
         .then(res => {
             if (res.data.user) {
               setUser(res.data.user);
+              setTimeout(() => {
+                logout();
+                setRefresh(r => !r);
+              }, 7000);
             } else {
               setUser(null)
             }
