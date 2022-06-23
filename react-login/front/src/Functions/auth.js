@@ -1,12 +1,12 @@
 export const login = key => {
-    localStorage.setItem('session', key);
+    sessionStorage.setItem('session', key);
 }
 export const logout = () => {
-    localStorage.removeItem('session');
+    sessionStorage.removeItem('session');
 }
 
 export const authConfig = () => {
     return {
-        headers: { Authorization: `${localStorage.getItem('session') ?? ''}` }
+        headers: { Authorization: `${sessionStorage.getItem('session') ?? ''}` }
     }
 }
