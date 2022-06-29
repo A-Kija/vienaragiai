@@ -32,12 +32,22 @@ $pdo = new PDO($dsn, $user, $pass, $options);
     </form>
 </fieldset>
 
+<fieldset>
+    <legend>DELETE</legend>
+    <form method="POST">
+        ID: <input type="text" name="id">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit">delete</button>
+    </form>
+</fieldset>
+
 
 
 <?php
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
     // CREATE
     // INSERT INTO table_name (column1, column2, column3, ...)
     // VALUES (value1, value2, value3, ...);
@@ -47,10 +57,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         (title, height, type)
         VALUES ('".$_POST['title']."', ".$_POST['height'].", ".$_POST['type'].")
         ";
+        $pdo->query($sql);
+        header('Location: http://localhost/vienaragiai/db/');
+        die;
     }
-    $pdo->query($sql);
-    header('Location: http://localhost/vienaragiai/db/');
-    die;
+
+
+    if ($_POST['_method'] == 'delete') {
+        // DELETE
+        // DELETE FROM table_name WHERE condition;
+        $sql = "
+            DELETE FROM trees
+            WHERE id = ".$_POST['id']."
+        ";
+        $pdo->query($sql);
+        header('Location: http://localhost/vienaragiai/db/');
+        die;
+    }
 }
 
 
