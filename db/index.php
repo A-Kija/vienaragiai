@@ -55,9 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "
         INSERT INTO trees
         (title, height, type)
-        VALUES ('".$_POST['title']."', ".$_POST['height'].", ".$_POST['type'].")
+        VALUES (:a, :z, :type)
         ";
-        $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        // $stmt->execute([$_POST['title'], $_POST['height'], $_POST['type']]);
+        $stmt->execute([
+            'z' => $_POST['height'],
+           'type' => $_POST['type'],
+            'a' => $_POST['title']
+        ]);
         header('Location: http://localhost/vienaragiai/db/');
         die;
     }
@@ -68,9 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // DELETE FROM table_name WHERE condition;
         $sql = "
             DELETE FROM trees
-            WHERE id = ".$_POST['id']."
+            WHERE id = ?
         ";
-        $pdo->query($sql);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_POST['id']]);
+
         header('Location: http://localhost/vienaragiai/db/');
         die;
     }
