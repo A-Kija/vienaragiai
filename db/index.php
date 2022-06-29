@@ -41,6 +41,16 @@ $pdo = new PDO($dsn, $user, $pass, $options);
     </form>
 </fieldset>
 
+<fieldset>
+    <legend>UPDATE</legend>
+    <form method="POST">
+        ID: <input type="text" name="id">
+        Title: <input type="text" name="title">
+        <input type="hidden" name="_method" value="put">
+        <button type="submit">update</button>
+    </form>
+</fieldset>
+
 
 
 <?php
@@ -78,6 +88,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$_POST['id']]);
+
+        header('Location: http://localhost/vienaragiai/db/');
+        die;
+    }
+
+    if ($_POST['_method'] == 'put') {
+        // UPDATE
+        // UPDATE table_name
+        // SET column1 = value1, column2 = value2, ...
+        // WHERE condition;
+        $sql = "
+            UPDATE trees
+            SET title = ?
+            WHERE id = ?
+        ";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$_POST['title'], $_POST['id']]);
 
         header('Location: http://localhost/vienaragiai/db/');
         die;
