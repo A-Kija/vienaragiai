@@ -26,4 +26,4 @@ Route::get('/barsukas', [A::class, 'barsukas']);
 
 Route::get('/briedis/{id}', [A::class, 'briedis']);
 
-Route::get('/suma/{s1}/{s2}', [S::class, 'suma']);
+Route::get('/suma/{s1?}/{s2?}', [S::class, 'suma']);
