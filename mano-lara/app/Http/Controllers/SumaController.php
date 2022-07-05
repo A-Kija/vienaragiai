@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Color;
 
 class SumaController extends Controller
 {
@@ -15,9 +16,11 @@ class SumaController extends Controller
 
     public function skirtumas(Request $request)
     {
+        $colors = Color::all();
         $rodyti = $request->session()->get('rezultatas', '');
         return view('post.form', [
-            'ro' => $rodyti
+            'ro' => $rodyti,
+            'colors' => $colors
         ]);
     }
 
@@ -25,6 +28,9 @@ class SumaController extends Controller
     {
         $rez = $request->x - $request->y;
         // $request->session()->flash('rezultatas', $rez);
+        $color = new Color;
+        $color->color = $rez;
+        $color->save();
         dump($rez);
         return redirect()->route('forma')->with('rezultatas', $rez);
     }
