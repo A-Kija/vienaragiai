@@ -12,4 +12,20 @@ class SumaController extends Controller
 
         return view('suma', ['rezultatas' => $ab]);
     }
+
+    public function skirtumas(Request $request)
+    {
+        $rodyti = $request->session()->get('rezultatas', '');
+        return view('post.form', [
+            'ro' => $rodyti
+        ]);
+    }
+
+    public function skaiciuoti(Request $request)
+    {
+        $rez = $request->x - $request->y;
+        // $request->session()->flash('rezultatas', $rez);
+        dump($rez);
+        return redirect()->route('forma')->with('rezultatas', $rez);
+    }
 }
