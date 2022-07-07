@@ -29,6 +29,7 @@ class SumaController extends Controller
         $rez = $request->x - $request->y;
         // $request->session()->flash('rezultatas', $rez);
         $color = new Color;
+        $color->doMagic();
         $color->color = $rez;
         $color->save();
         dump($rez);

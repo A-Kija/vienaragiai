@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
-use App\Http\Requests\StoreColorRequest;
-use App\Http\Requests\UpdateColorRequest;
+use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
@@ -15,7 +14,9 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors = Color::all();
+        
+        return view('color.index', ['colors' => $colors]);
     }
 
     /**
@@ -25,18 +26,24 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('color.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreColorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreColorRequest $request)
+    public function store(Request $request)
     {
-        //
+        $color = new Color;
+
+        $color->color = $request->create_color_input;
+
+        $color->save();
+
+        return redirect()->route('colors-index');
     }
 
     /**
@@ -58,19 +65,25 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     {
-        //
+        
+        
+        return view('color.edit', ['color' => $color]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateColorRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateColorRequest $request, Color $color)
+    public function update(Request $request, Color $color)
     {
-        //
+        $color->color = $request->create_color_input;
+
+        $color->save();
+
+        return redirect()->route('colors-index');
     }
 
     /**
@@ -81,6 +94,8 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
-        //
+        $color->delete();
+
+        return redirect()->route('colors-index');
     }
 }

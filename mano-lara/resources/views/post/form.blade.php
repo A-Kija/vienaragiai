@@ -1,3 +1,6 @@
+@extends('main')
+
+@section('content')
 @if($ro !== '')
 <h1>REZULTATAS: {{$ro}}</h1>
 @endif
@@ -9,6 +12,11 @@ Y: <input type="text" name="y" />
 </form>
 <ul>
 @foreach($colors as $color)
-    <li> {{$color->id}}: {{$color->color}}</li>
+    @include('post.li')
 @endforeach
 </ul>
+@endsection
+
+@section('title')
+Bla Bla here we go!
+@endsection

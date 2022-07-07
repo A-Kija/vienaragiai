@@ -1,0 +1,33 @@
+form,
+li {
+    list-style: none;
+}
+
+.color-box {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    margin: 100px;
+    border: 1px solid gray;
+    padding: 20px;
+}
+
+form.delete {
+    margin: 0 0 40px 0;
+    border: none;
+    padding: 0;
+}
+
+form.delete button {
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+}

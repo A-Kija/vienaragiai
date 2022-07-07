@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Color extends Model
 {
     use HasFactory;
+
+    public function doMagic()
+    {
+        return 'Rabbit in Hat';
+    }
 }
