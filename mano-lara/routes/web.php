@@ -39,3 +39,5 @@ Route::post('/colors', [C::class, 'store'])->name('colors-store');
 Route::get('/colors/edit/{color}', [C::class, 'edit'])->name('colors-edit');
 Route::put('/colors/{color}', [C::class, 'update'])->name('colors-update');
 Route::delete('/colors/{color}', [C::class, 'destroy'])->name('colors-delete');
+
+Route::get('/colors/show/{id}', [C::class, 'show'])->name('colors-show');

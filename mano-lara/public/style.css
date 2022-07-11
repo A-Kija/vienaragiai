@@ -4,11 +4,12 @@ li {
 }
 
 .color-box {
-    width: 70px;
-    height: 70px;
+    width: 170px;
+    height: 170px;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column-reverse;
 }
 
 form {
@@ -17,17 +18,53 @@ form {
     padding: 20px;
 }
 
+.alert-success {
+    background-color: aquamarine;
+    padding: 10px;
+    display: flex;
+}
+
+.alert-deleted {
+    background-color: rgb(255, 127, 127);
+    padding: 10px;
+    display: flex;
+}
+
+nav a {
+    display: inline-block;
+    font-size: 150%;
+    text-decoration: none;
+    margin: 30px;
+    color: crimson;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 form.delete {
-    margin: 0 0 40px 0;
+    margin: 20px 0 40px 0;
     border: none;
     padding: 0;
 }
 
 form.delete button {
+    letter-spacing: 1px;
     background-color: transparent;
     border: none;
     text-decoration: underline;
     font-size: 16px;
     text-transform: uppercase;
     cursor: pointer;
+    color: cornflowerblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.controls a {
+    letter-spacing: 1px;
+    margin: 20px 10px 40px 0;
+    color: cornflowerblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
