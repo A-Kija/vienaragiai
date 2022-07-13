@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -107,8 +113,14 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
-        $color->delete();
+        
+        if (!$color->animals->count()) {
+            $color->delete();
+            return redirect()->route('colors-index')->with('deleted', 'Color gone!');
+        }
+        return redirect()->back()->with('deleted', 'No no, it is imposible!');
+       
 
-        return redirect()->route('colors-index')->with('deleted', 'Color gone!');
+        
     }
 }

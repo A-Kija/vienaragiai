@@ -1,9 +1,23 @@
 @extends('main')
 
 @section('content')
-<a href="{{route('animals-index', ['sort' => 'asc'])}}">A-Z</a>
-<a href="{{route('animals-index', ['sort' => 'desc'])}}">Z-A</a>
-<a href="{{route('animals-index')}}">Reset</a>
+<div class="container">
+   <div class="row justify-content-center">
+       <div class="col-md-8">
+           <div class="card">
+               <div class="card-header">PAVADINIMAS</div>
+
+               <div class="card-body">
+                 BLADE TURINYS
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+@endsection
+
+
+@section('content')
 <ul>
     @forelse($animals as $animal)
     <li>
