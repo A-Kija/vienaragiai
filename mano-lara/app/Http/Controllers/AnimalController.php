@@ -66,11 +66,11 @@ class AnimalController extends Controller
      * @param  \App\Models\Color  $color
      * @return \Illuminate\Http\Response
      */
-    public function show(int $colorId)
+    public function show(int $animalId)
     {
-        $color = Color::where('id', $colorId)->first();
+        $animal = Animal::where('id', $animalId)->first();
         
-        return view('color.show', ['color' => $color]);
+        return view('animal.show', ['animal' => $animal]);
     }
 
     /**

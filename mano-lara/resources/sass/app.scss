@@ -52,6 +52,24 @@ body {
     }
 }
 
+.color-box2 {
+    padding: 5px 20px;
+    border-radius: 10px;
+    h2 {
+        margin: 0;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px white;
+        color: black;
+    }
+    i {
+        text-shadow: 1px 1px white;
+        color: black;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+    }
+}
+
 h1.nice {
     text-shadow: 1px 1px white;
     color: black;
