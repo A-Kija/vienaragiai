@@ -24,12 +24,14 @@
                                 </div>
                                 <div class="controls">
                                     <a class="btn btn-outline-primary m-2" href="{{route('colors-show', $color->id)}}">Show</a>
+                                    @if(Auth::user()->role > 9)
                                     <a class="btn btn-outline-success m-2" href="{{route('colors-edit', $color)}}">Edit</a>
                                     <form class="delete" action="{{route('colors-delete', $color)}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-outline-danger m-2">Destroy</button>
                                     </form>
+                                    @endif
                                 </div>
                             </div>
                         </li>
