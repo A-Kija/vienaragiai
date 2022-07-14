@@ -24,7 +24,7 @@ class RolePlay
                 abort(401);
             }
         }
-        if ($role == 'user') {
+        else if ($role == 'user') {
             if ($userRole < 1) {
                 abort(401);
             }
