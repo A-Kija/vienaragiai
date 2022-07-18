@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController as A;
 use App\Http\Controllers\SumaController as S;
 use App\Http\Controllers\ColorController as C;
+use App\Http\Controllers\FrontController as F;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,30 +17,29 @@ use App\Http\Controllers\ColorController as C;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
 
-Route::get('/bebras', fn() => 'Valio, bebrams');
+//Front
+Route::get('', [F::class, 'index'])->name('front-index');
 
-// Route::get('/barsukas', [A::class, 'barsukas']);
 
-// Route::get('/briedis/{id}', [A::class, 'briedis']);
 
-// Route::get('/suma/{s1?}/{s2?}', [S::class, 'suma']);
-
-Route::get('/skirtumas', [S::class, 'skirtumas'])->name('forma');
-Route::post('/skirtumas', [S::class, 'skaiciuoti'])->name('skaiciuokle');
 
 //Colors
-Route::get('/colors', [C::class, 'index'])->name('colors-index')->middleware('rp:user');
-Route::get('/colors/create', [C::class, 'create'])->name('colors-create')->middleware('rp:admin');
-Route::post('/colors', [C::class, 'store'])->name('colors-store')->middleware('rp:admin');
-Route::get('/colors/edit/{color}', [C::class, 'edit'])->name('colors-edit')->middleware('rp:admin');
-Route::put('/colors/{color}', [C::class, 'update'])->name('colors-update')->middleware('rp:admin');
-Route::delete('/colors/{color}', [C::class, 'destroy'])->name('colors-delete')->middleware('rp:admin');
-Route::get('/colors/show/{id}', [C::class, 'show'])->name('colors-show')->middleware('rp:user');
+Route::prefix('colors')->name('colors-')->group(function () {
+    Route::get('', [C::class, 'index'])->name('index')->middleware('rp:user');
+    Route::get('create', [C::class, 'create'])->name('create')->middleware('rp:admin');
+    Route::post('', [C::class, 'store'])->name('store')->middleware('rp:admin');
+    Route::get('edit/{color}', [C::class, 'edit'])->name('edit')->middleware('rp:admin');
+    Route::put('{color}', [C::class, 'update'])->name('update')->middleware('rp:admin');
+    Route::delete('{color}', [C::class, 'destroy'])->name('delete')->middleware('rp:admin');
+    Route::get('show/{id}', [C::class, 'show'])->name('show')->middleware('rp:user');
+});
+
+
 
 //Animals
 Route::get('/animals', [A::class, 'index'])->name('animals-index');
