@@ -29,8 +29,12 @@
                         @endforelse
                     </ul>
                 </div>
+                @include('front.pager')
             </div>
+            
         </div>
+        
     </div>
+    
 </div>
 @endsection
