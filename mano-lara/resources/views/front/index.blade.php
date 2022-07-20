@@ -8,6 +8,7 @@
             <div class="card">
                 <div class="card-header">My fantastic Zoo</div>
                 <div class="card-body">
+                    @include('front.pager')
                     <ul class="list-group">
                         @forelse($animals as $animal)
                         <li class="list-group-item">
@@ -31,10 +32,7 @@
                 </div>
                 @include('front.pager')
             </div>
-            
         </div>
-        
     </div>
-    
 </div>
 @endsection
