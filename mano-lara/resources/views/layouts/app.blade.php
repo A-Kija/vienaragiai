@@ -101,6 +101,7 @@
         </nav>
 
         <main class="py-4">
+            @include('msg.main')
             @yield('content')
         </main>
     </div>

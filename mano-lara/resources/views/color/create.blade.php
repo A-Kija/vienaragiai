@@ -11,11 +11,11 @@
                     <form action="{{route('colors-store')}}" method="post">
                         <div class="form-group">
                             <label>Color name</label>
-                            <input class="form-control" type="text" name="color_title" />
+                            <input class="form-control" type="text" name="color_title" value="{{old('color_title')}}" />
                         </div>
                         <div class="form-group">
                             <label class="mt-2">Color</label>
-                            <input class="form-control" type="color" name="create_color_input" />
+                            <input class="form-control" type="color" name="create_color_input" value="{{old('create_color_input')}}" />
                         </div>
                         @csrf
                         @method('post')

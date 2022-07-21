@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Color;
 use Illuminate\Http\Request;
+use Validator;
 
 class ColorController extends Controller
 {
@@ -47,11 +48,32 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $validator = Validator::make($request->all(),
+        [
+            'color_title' => ['required', 'min:3', 'max:64'],
+            'create_color_input' => ['required', 'regex:/^\#([0-9A-Fa-f]){6}$/'],
+        ],
+        [
+            'color_title.required' => 'Write something!',
+            'color_title.min' => 'You are too short!',
+        ]
+        );
+
+       if ($validator->fails()) {
+           $request->flash();
+           return redirect()->back()->withErrors($validator);
+       }
+
+        
+        
+        
+        
         $color = new Color;
 
         $color->color = $request->create_color_input;
 
-        $color->title = $request->color_title ?? 'no title';
+        $color->title = $request->color_title;
 
         $color->save();
 
@@ -93,6 +115,25 @@ class ColorController extends Controller
      */
     public function update(Request $request, Color $color)
     {
+        
+        $validator = Validator::make($request->all(),
+        [
+            'color_title' => ['required', 'min:3', 'max:64'],
+            'create_color_input' => ['required', 'regex:/^\#([0-9A-Fa-f]){6}$/'],
+        ],
+        [
+            'color_title.required' => 'Write something!',
+            'color_title.min' => 'You are too short!',
+        ]
+        );
+
+       if ($validator->fails()) {
+           $request->flash();
+           return redirect()->back()->withErrors($validator);
+       }
+        
+        
+        
         $color->color = $request->create_color_input;
 
         $color->title = $request->color_title ?? 'no title';
