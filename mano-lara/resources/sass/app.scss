@@ -27,12 +27,18 @@ body {
     }
 }
 
+form {
+    display: flex;
+    width: 100%;
+}
+
 .color-bin {
     display: flex;
     justify-content: space-between;
     align-items: center;
     .controls {
         display: flex;
+        width: 100%;
     }
     .color-box {
         padding: 20px;
