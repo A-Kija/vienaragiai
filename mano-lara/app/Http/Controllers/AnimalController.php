@@ -51,6 +51,27 @@ class AnimalController extends Controller
     {
         $animal = new Animal;
 
+
+
+        if ($request->file('animal_photo')) {
+
+            $photo = $request->file('animal_photo');
+
+            $ext = $photo->getClientOriginalExtension();
+
+            $name = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $file = $name. '-' . rand(100000, 999999). '.' . $ext;
+
+            $photo->move(public_path().'/images', $file);
+
+            $animal->photo = asset('/images') . '/' . $file;
+
+
+            dd($animal->photo);
+
+        }
+
         $animal->name = $request->animal_name;
 
         $animal->color_id = $request->color_id;
