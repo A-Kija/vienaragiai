@@ -52,6 +52,7 @@ Route::get('/animals/edit/{animal}', [A::class, 'edit'])->name('animals-edit');
 Route::put('/animals/{animal}', [A::class, 'update'])->name('animals-update');
 Route::delete('/animals/{animal}', [A::class, 'destroy'])->name('animals-delete');
 Route::get('/animals/show/{id}', [A::class, 'show'])->name('animals-show');
+Route::put('/animals/delete-picture/{animal}', [A::class, 'deletePicture'])->name('animals-delete-picture');
 
 
 

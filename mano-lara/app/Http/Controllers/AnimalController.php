@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Models\Animal;
 use Illuminate\Http\Request;
+use Image;
 
 class AnimalController extends Controller
 {
@@ -63,12 +64,13 @@ class AnimalController extends Controller
 
             $file = $name. '-' . rand(100000, 999999). '.' . $ext;
 
-            $photo->move(public_path().'/images', $file);
+            $Image = Image::make($photo)->pixelate(12);
+
+            $Image->save(public_path().'/images/'.$file);
+
+            // $photo->move(public_path().'/images', $file);
 
             $animal->photo = asset('/images') . '/' . $file;
-
-
-            dd($animal->photo);
 
         }
 
@@ -120,6 +122,36 @@ class AnimalController extends Controller
      */
     public function update(Request $request, Animal $animal)
     {
+        
+        
+        if ($request->file('animal_photo')) {
+
+
+            $name = pathinfo($animal->photo, PATHINFO_FILENAME);
+            $ext = pathinfo($animal->photo, PATHINFO_EXTENSION);
+    
+            $path = asset('/images') . '/' . $name . '.' . $ext;
+    
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+            $photo = $request->file('animal_photo');
+
+            $ext = $photo->getClientOriginalExtension();
+
+            $name = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $file = $name. '-' . rand(100000, 999999). '.' . $ext;
+
+            $photo->move(public_path().'/images', $file);
+
+            $animal->photo = asset('/images') . '/' . $file;
+
+        }
+        
+        
+        
         $animal->name = $request->animal_name;
 
         $animal->color_id = $request->color_id;
@@ -137,8 +169,41 @@ class AnimalController extends Controller
      */
     public function destroy(Animal $animal)
     {
+        
+        if ($animal->photo) {
+            $name = pathinfo($animal->photo, PATHINFO_FILENAME);
+            $ext = pathinfo($animal->photo, PATHINFO_EXTENSION);
+            $path = asset('/images') . '/' . $name . '.' . $ext;
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
+        
+        
         $animal->delete();
 
         return redirect()->route('animals-index')->with('deleted', 'Animal is dead :(');
+    }
+
+    public function deletePicture(Animal $animal) 
+    {
+        
+        
+
+        $name = pathinfo($animal->photo, PATHINFO_FILENAME);
+        $ext = pathinfo($animal->photo, PATHINFO_EXTENSION);
+
+        $path = asset('/images') . '/' . $name . '.' . $ext;
+
+        if(file_exists($path)) {
+            unlink($path);
+        }
+        
+        $animal->photo = null;
+        $animal->save();
+
+
+
+        return redirect()->back()->with('deleted', 'Animal have no photo now');
     }
 }
