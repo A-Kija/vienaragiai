@@ -5,7 +5,7 @@ use App\Http\Controllers\AnimalController as A;
 use App\Http\Controllers\SumaController as S;
 use App\Http\Controllers\ColorController as C;
 use App\Http\Controllers\FrontController as F;
-use App\Http\Controllers\CartController as Cart;
+use App\Http\Controllers\OrderController as O;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ Route::get('/welcome', function () {
 //Front
 Route::get('', [F::class, 'index'])->name('front-index');
 
-Route::post('add-animal-to-cart', [Cart::class, 'add'])->name('front-add');
+Route::post('add-animal-to-order', [O::class, 'add'])->name('front-add');
 
 
 
