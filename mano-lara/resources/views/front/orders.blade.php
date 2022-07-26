@@ -10,6 +10,10 @@
                     <ul class="list-group">
                         @forelse($orders as $order)
                         <li class="list-group-item">
+                            <div class="right m-2">
+                            <small>{!!$order->time!!}</small>
+                                {{$statuses[$order->status]}}
+                            </div>
                             <div class="color-box2" style="background:{{$order->animal->getThisAnimalsColor_plese->color}}">
                                 <i>{{$order->animal->getThisAnimalsColor_plese->title}}</i>
                                 <h2>{{$order->animal->name}}: <small>{{$order->count}} units</small></h2>

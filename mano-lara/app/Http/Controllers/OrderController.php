@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -13,8 +14,19 @@ class OrderController extends Controller
     {
         $orders = Order::orderBy('id', 'desc')->get();
 
+
+        return view('orders.index', [
+            'orders' => $orders,
+            'statuses' => Order::STATUSES
         
-        return view('orders.index', ['orders' => $orders]);
+        ]);
+    }
+
+    public function setStatus(Request $request, Order $order)
+    {
+        $order->status = $request->status;
+        $order->save();
+        return redirect()->back();
     }
     
     
@@ -43,7 +55,22 @@ class OrderController extends Controller
         $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
 
 
+        $orders = $orders->map(function($o) {
+            $time = Carbon::create($o->created_at)->setTimezone('Europe/Vilnius');
 
-        return view('front.orders', ['orders' => $orders]);
+            // $time->next('Monday')->addHours(12);
+            // dd($time);
+            $o->time = $time->format('Y-m-d') . '&nbsp;&nbsp;&nbsp' . $time->format('H:i');
+            // $o->time = '<script>alert("batai")</script>';
+            return $o;
+        });
+
+
+        return view('front.orders', [
+            'orders' => $orders,
+            'statuses' => Order::STATUSES
+
+        
+        ]);
     }
 }
