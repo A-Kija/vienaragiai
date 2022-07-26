@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedTinyInteger('count');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
     }

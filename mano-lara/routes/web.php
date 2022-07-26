@@ -27,7 +27,7 @@ Route::get('/welcome', function () {
 Route::get('', [F::class, 'index'])->name('front-index');
 
 Route::post('add-animal-to-order', [O::class, 'add'])->name('front-add');
-
+Route::get('my-orders', [O::class, 'showMyOrders'])->name('my-orders');
 
 
 
@@ -42,6 +42,11 @@ Route::prefix('colors')->name('colors-')->group(function () {
     Route::get('show/{id}', [C::class, 'show'])->name('show')->middleware('rp:user');
 });
 
+//Orders
+Route::prefix('orders')->name('orders-')->group(function () {
+    Route::get('', [O::class, 'index'])->name('index')->middleware('rp:admin');
+
+});
 
 
 //Animals

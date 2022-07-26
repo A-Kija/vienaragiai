@@ -16,8 +16,9 @@
                                 <i>{{$animal->title}}</i>
                                 <h2>{{$animal->name}}</h2>
                             </div>
+                            @if(Auth::user()?->role > 0)
                             <div class="controls">
-                                <form class="delete" action="{{route('front-add')}}" method="post">
+                                <form class="delete form" action="{{route('front-add')}}" method="post">
                                     @csrf
                                     @method('post')
                                     <div class="container">
@@ -28,25 +29,21 @@
                                             <div class="col-2">
                                                 <input class="form-control m-2" type="number" style="width:50px;" name="animals_count" />
                                             </div>
-                                            <input type="hidden" value="{{$animal->id}}" name="animal_id">
+                                            <input type="hidden" value="{{$animal->aid}}" name="animal_id">
                                         </div>
                                     </div>
-                                
-                            
-</form>
-
-
+                                </form>
+                            </div>
+                            @endif
+                        </li>
+                        @empty
+                        <li class="list-group-item">No animals, no life.</li>
+                        @endforelse
+                    </ul>
                 </div>
-
-                </li>
-                @empty
-                <li class="list-group-item">No animals, no life.</li>
-                @endforelse
-                </ul>
+                @include('front.pager')
             </div>
-            @include('front.pager')
         </div>
     </div>
-</div>
 </div>
 @endsection

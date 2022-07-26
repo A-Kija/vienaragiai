@@ -35,7 +35,7 @@ class FrontController extends Controller
 
             $animalsDir = [DB::table('animals')
                 ->join('colors', 'colors.id', '=', 'animals.color_id')
-                ->select('colors.*', 'animals.*')
+                ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                 ->where('colors.title', 'like', '%'.$w1.'%')
                 ->where('animals.name', 'like', '%'.$w2.'%')
                 // ->orWhere(function($query) use ($w1, $w2) {
@@ -65,14 +65,14 @@ class FrontController extends Controller
                 $animalsDir = match($request->sort) {
                     'color-asc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->orderBy('colors.title', 'asc')
                                     ->offset(($page - 1) * $this->perPage)
                                     ->limit($this->perPage)
                                     ->get(), 'color-asc'],
                     'color-desc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->orderBy('colors.title', 'desc')
                                     ->offset(($page - 1) * $this->perPage)
                                     ->limit($this->perPage)
@@ -80,7 +80,7 @@ class FrontController extends Controller
 
                     'animal-asc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->orderBy('animals.name', 'asc')
                                     ->orderBy('colors.title', 'asc')
                                     ->offset(($page - 1) * $this->perPage)
@@ -88,7 +88,7 @@ class FrontController extends Controller
                                     ->get(), 'animal-asc'],
                     'animal-desc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->orderBy('animals.name', 'desc')
                                     ->orderBy('colors.title', 'asc')
                                     ->offset(($page - 1) * $this->perPage)
@@ -97,7 +97,7 @@ class FrontController extends Controller
                     
                     default => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('animals.*', 'colors.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->offset(($page - 1) * $this->perPage)
                                     ->limit($this->perPage)
                                     ->get()->shuffle(), 'default']
@@ -141,7 +141,7 @@ class FrontController extends Controller
                 $animalsDir = match($request->sort) {
                     'color-asc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->where('animals.color_id', $request->color_id)
                                     ->orderBy('colors.title', 'asc')
                                     ->offset(($page - 1) * $this->perPage)
@@ -149,7 +149,7 @@ class FrontController extends Controller
                                     ->get(), 'color-asc'],
                     'color-desc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->where('animals.color_id', $request->color_id)
                                     ->orderBy('colors.title', 'desc')
                                     ->offset(($page - 1) * $this->perPage)
@@ -158,7 +158,7 @@ class FrontController extends Controller
 
                     'animal-asc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->where('animals.color_id', $request->color_id)
                                     ->orderBy('animals.name', 'asc')
                                     ->orderBy('colors.title', 'asc')
@@ -167,7 +167,7 @@ class FrontController extends Controller
                                     ->get(), 'animal-asc'],
                     'animal-desc' => [DB::table('animals')
                                     ->join('colors', 'colors.id', '=', 'animals.color_id')
-                                    ->select('colors.*', 'animals.*')
+                                    ->select('colors.*', 'animals.id AS aid', 'animals.name', 'animals.color_id', 'animals.photo')
                                     ->where('animals.color_id', $request->color_id)
                                     ->orderBy('animals.name', 'desc')
                                     ->orderBy('colors.title', 'asc')
