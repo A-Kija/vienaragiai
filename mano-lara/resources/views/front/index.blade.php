@@ -18,21 +18,17 @@
                             </div>
                             @if(Auth::user()?->role > 0)
                             <div class="controls">
-                                <form class="delete form" action="{{route('front-add')}}" method="post">
-                                    @csrf
-                                    @method('post')
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <button type="submit" class="btn btn-outline-warning m-2">Want it!</button>
-                                            </div>
-                                            <div class="col-2">
-                                                <input class="form-control m-2" type="number" style="width:50px;" name="animals_count" />
-                                            </div>
-                                            <input type="hidden" value="{{$animal->aid}}" name="animal_id">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <button type="submit" class="btn btn-outline-warning m-2 add--cart">Want it!</button>
                                         </div>
+                                        <div class="col-2">
+                                            <input class="form-control m-2" type="number" style="width:50px;" name="animals_count" />
+                                        </div>
+                                        <input type="hidden" value="{{$animal->aid}}" name="animal_id">
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             @endif
                         </li>

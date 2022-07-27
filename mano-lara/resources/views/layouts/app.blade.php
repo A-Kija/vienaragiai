@@ -9,6 +9,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script>
+        const showUrl = "{{route('colors-show-route')}}";
+        const addToCartUrl = "{{route('front-add-cart')}}";
+        const mySmallCart = "{{route('my-small-cart')}}";
+    </script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <!-- Fonts -->
@@ -113,6 +118,8 @@
                                     @csrf
                                 </form>
                             </div>
+                        </li>
+                        <li class="nav-item small--cart">
                         </li>
                         @endguest
                     </ul>

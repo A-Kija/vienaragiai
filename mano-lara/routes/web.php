@@ -6,6 +6,7 @@ use App\Http\Controllers\SumaController as S;
 use App\Http\Controllers\ColorController as C;
 use App\Http\Controllers\FrontController as F;
 use App\Http\Controllers\OrderController as O;
+use App\Http\Controllers\CartController as Cart;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,12 @@ Route::get('', [F::class, 'index'])->name('front-index');
 Route::post('add-animal-to-order', [O::class, 'add'])->name('front-add');
 Route::get('my-orders', [O::class, 'showMyOrders'])->name('my-orders');
 
+Route::post('add-animal-to-cart', [Cart::class, 'add'])->name('front-add-cart');
+
+Route::get('my-small-cart', [Cart::class, 'showSmallCart'])->name('my-small-cart');
+
+Route::delete('my-small-cart', [Cart::class, 'deleteSmallCart'])->name('my-small-cart');
+
 
 
 //Colors
@@ -40,6 +47,7 @@ Route::prefix('colors')->name('colors-')->group(function () {
     Route::put('{color}', [C::class, 'update'])->name('update')->middleware('rp:admin');
     Route::delete('{color}', [C::class, 'destroy'])->name('delete')->middleware('rp:admin');
     Route::get('show/{id}', [C::class, 'show'])->name('show')->middleware('rp:user');
+    Route::get('show', [C::class, 'link'])->name('show-route');
 });
 
 //Orders
