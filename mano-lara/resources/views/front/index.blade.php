@@ -15,6 +15,7 @@
                             <div class="color-box2" style="background:{{$animal->color}};">
                                 <i>{{$animal->title}}</i>
                                 <h2>{{$animal->name}}</h2>
+                                <a href="https://www.google.com/search?q={{$animal->name}}+{{$animal->title}}" target="_blank">Go and see</a>
                             </div>
                             @if(Auth::user()?->role > 0)
                             <div class="controls">

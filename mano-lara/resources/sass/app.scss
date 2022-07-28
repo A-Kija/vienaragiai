@@ -98,3 +98,20 @@ h1.nice {
         color: gray;
     }
 }
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    b {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        background-color: crimson;
+        border-radius: 50%;
+    }
+}

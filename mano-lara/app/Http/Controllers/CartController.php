@@ -15,10 +15,17 @@ class CartController extends Controller
 
        $cart = session()->get('cart', []);
 
-       dump($cart );
-
-       $cart[] = ['id' => $id, 'count' => $count];
-
+        switch(1) {
+            case 1:
+                foreach ($cart as &$item) {
+                    if ($item['id'] == $id) {
+                        $item['count'] += $count;
+                        break 2;
+                    }
+                  }
+            default:
+                $cart[] = ['id' => $id, 'count' => $count];
+        }
 
        session()->put('cart', $cart);
        
@@ -55,9 +62,20 @@ class CartController extends Controller
         ]);
     }
 
-    public function deleteSmallCart()
+    public function deleteSmallCart(Request $request)
     {
-        session()->put('cart', []);
+        
+        $cart = session()->get('cart', []);
+        $id = (int) $request->id;
+
+        foreach($cart as $key => $item) {
+            if ($id == $item['id']) {
+                unset($cart[$key]);
+                break;
+            }
+        }
+        
+        session()->put('cart', $cart);
 
         return response()->json([
             'msg' => 'Koks nors durnas atsakymas'

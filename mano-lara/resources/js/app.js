@@ -2,12 +2,33 @@ import * as bootstrap from 'bootstrap';
 import axios from 'axios';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.addEventListener('load', () => {
+const cartDelete = () => {
+    document.querySelectorAll('.delete--cart--item')
+        .forEach(b => {
+            b.addEventListener('click', () => {
+                const id = b.dataset.itemId;
+                axios.delete(mySmallCart + '?id=' + id)
+                    .then(_ => {
+                        cartUpdate();
+                    })
+            })
+        });
+}
+
+const cartUpdate = () => {
     axios.get(mySmallCart)
         .then(res => {
             document.querySelector('.small--cart').innerHTML = res.data.html;
+            cartDelete();
         })
+}
+
+
+window.addEventListener('load', () => {
+    cartUpdate();
 });
+
+
 
 
 if (document.querySelector('.magic--link')) {
@@ -41,10 +62,7 @@ if (document.querySelector('.add--cart')) {
                 const animalId = row.querySelector('[name=animal_id]').value;
                 axios.post(addToCartUrl, { count, animalId })
                     .then(res => {
-                        axios.get(mySmallCart)
-                            .then(res => {
-                                document.querySelector('.small--cart').innerHTML = res.data.html;
-                            })
+                        cartUpdate();
                     })
             })
         })
