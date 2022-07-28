@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Animal;
 
 class CartController extends Controller
 {
@@ -33,9 +34,21 @@ class CartController extends Controller
         
         $cart = session()->get('cart', []);
 
+        $ids = array_map(fn($p) => $p['id'], $cart);
+
+        $cartCollection = collect([...$cart]);
+
+        $animals = Animal::whereIn('id', $ids)->get()->map(function($a) use ($cartCollection){
+            $a->count = $cartCollection->first(fn($e) => $e['id'] == $a->id)['count'];
+            return $a;
+        });
+
         $all = count($cart);
 
-        $html = view('front.cart')->with(['count' => $all])->render();
+        $html = view('front.cart')->with([
+            'count' => $all,
+            'cart' => $animals
+            ])->render();
 
         return response()->json([
             'html' => $html

@@ -10,7 +10,6 @@ window.addEventListener('load', () => {
 });
 
 
-
 if (document.querySelector('.magic--link')) {
 
     const selector = document.querySelector('[name=color_id]');
@@ -42,15 +41,11 @@ if (document.querySelector('.add--cart')) {
                 const animalId = row.querySelector('[name=animal_id]').value;
                 axios.post(addToCartUrl, { count, animalId })
                     .then(res => {
-
                         axios.get(mySmallCart)
                             .then(res => {
                                 document.querySelector('.small--cart').innerHTML = res.data.html;
                             })
-
                     })
-
             })
         })
-
 }
