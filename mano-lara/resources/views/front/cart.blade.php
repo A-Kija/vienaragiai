@@ -6,14 +6,24 @@
         @forelse($cart as $animal)
         <span class="dropdown-item">
             <div class="cart-item">
-            <span>
-            {{$animal->name}} {{$animal->getThisAnimalsColor_plese->title}} {{$animal->count}}
-            </span>
-            <b class="delete--cart--item" data-item-id="{{$animal->id}}">X</b>
+                <span>
+                    {{$animal->name}} {{$animal->getThisAnimalsColor_plese->title}} {{$animal->count}}
+                </span>
+                <b class="delete--cart--item" data-item-id="{{$animal->id}}">X</b>
             </div>
         </span>
         @empty
+        <span class="dropdown-item">
             Your cart, my darling, is empty yet. Go buy something!
+        </span>
         @endforelse
+        @if($cart)
+        <span class="dropdown-item">
+            <form action="{{route('front-add')}}" method="post">
+                <button type="submit" class="btn btn-outline-warning m-2">Buy it</button>
+                @csrf
+            </form>
+        </span>
+        @endif
     </div>
 </li>

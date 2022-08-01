@@ -4,19 +4,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Orders</div>
+            @forelse($orders as $order)
+            <div class="card mt-3">
+                <div class="card-header">Order from: {{$order->client->name}}</div>
                 <div class="card-body">
                     <ul class="list-group">
-                        @forelse($orders as $order)
+
+                        @forelse($order->animals as $animal)
                         <li class="list-group-item">
-                            <div class="right m-2">
-                                {{$order->client->name}}
+
+                            <div class="color-box2" style="background:{{$animal->getThisAnimalsColor_plese->color}}">
+                                <i>{{$animal->getThisAnimalsColor_plese->title}}</i>
+                                <h2>{{$animal->name}}: <small>{{$animal->count}} units</small></h2>
                             </div>
-                            <div class="color-box2" style="background:{{$order->animal->getThisAnimalsColor_plese->color}}">
-                                <i>{{$order->animal->getThisAnimalsColor_plese->title}}</i>
-                                <h2>{{$order->animal->name}}: <small>{{$order->count}} units</small></h2>
-                            </div>
+
+                        </li>
+                        @endforeach
+                        <li class="list-group-item">
                             <div class="controls mt-2">
                                 <form class="delete form" action="{{route('orders-status', $order)}}" method="post">
                                     @csrf
@@ -28,7 +32,7 @@
                                                     <label>What status?</label>
                                                     <select class="form-control" name="status">
                                                         @foreach($statuses as $key => $status)
-                                                        <option value="{{$key}}" @if($key == $order->status) selected @endif>{{$status}}</option>
+                                                        <option value="{{$key}}" @if($key==$order->status) selected @endif>{{$status}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -39,13 +43,14 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
                         </li>
-                        @empty
-                        <li class="list-group-item">No orders, go to order something!</li>
-                        @endforelse
                     </ul>
                 </div>
             </div>
+            @empty
+            <div>No orders, go to order something!</div>
+            @endforelse
         </div>
     </div>
 </div>
