@@ -54,6 +54,7 @@ Route::prefix('colors')->name('colors-')->group(function () {
 Route::prefix('orders')->name('orders-')->group(function () {
     Route::get('', [O::class, 'index'])->name('index')->middleware('rp:admin');
     Route::put('status/{order}', [O::class, 'setStatus'])->name('status')->middleware('rp:admin');
+    Route::get('/pdf/{order}', [O::class, 'getPdf'])->name('pdf')->middleware('rp:admin');
 });
 
 

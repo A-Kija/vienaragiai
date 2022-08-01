@@ -7,6 +7,7 @@ use App\Models\Animal;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -96,4 +97,21 @@ class OrderController extends Controller
         
         ]);
     }
+
+
+    public function getPdf(Order $order)
+    {
+        
+        $cart =  json_decode($order->order, 1);
+        $ids = array_map(fn($p) => $p['id'], $cart);
+        $cartCollection = collect([...$cart]);
+        $order->animals = Animal::whereIn('id', $ids)->get()->map(function($a) use ($cartCollection){
+            $a->count = $cartCollection->first(fn($e) => $e['id'] == $a->id)['count'];
+            return $a;
+        });
+        
+        $pdf = Pdf::loadView('orders.pdf', ['order' => $order]);
+        return $pdf->download('order-'.$order->id.'.pdf');
+    }
+
 }

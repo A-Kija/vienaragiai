@@ -9,15 +9,12 @@
                 <div class="card-header">Order from: {{$order->client->name}}</div>
                 <div class="card-body">
                     <ul class="list-group">
-
                         @forelse($order->animals as $animal)
                         <li class="list-group-item">
-
                             <div class="color-box2" style="background:{{$animal->getThisAnimalsColor_plese->color}}">
                                 <i>{{$animal->getThisAnimalsColor_plese->title}}</i>
                                 <h2>{{$animal->name}}: <small>{{$animal->count}} units</small></h2>
                             </div>
-
                         </li>
                         @endforeach
                         <li class="list-group-item">
@@ -39,6 +36,9 @@
                                             </div>
                                             <div class="col-3">
                                                 <button type="submit" class="btn btn-outline-info m-4">Set status</button>
+                                            </div>
+                                            <div class="col-3">
+                                                <a class="btn btn-outline-success m-4" href="{{route('orders-pdf', $order)}}">Get PDF</a>
                                             </div>
                                         </div>
                                     </div>
