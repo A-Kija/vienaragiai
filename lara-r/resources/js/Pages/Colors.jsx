@@ -5,12 +5,21 @@ function Colors({ niceColors, saveUrl }) {
 
 
     
-    const [colors, setColors] = useState([]);
+    const [colors, setColors] = useState(null);
     const [color, setColor] = useState('#00ff09');
 
     useEffect(() => {
         setColors(niceColors);
     }, []);
+
+    useEffect(() => {
+        setInterval(() => {
+            if (null !== colors) {
+                save();
+            }
+        }, 4000);
+       
+    }, [colors]);
 
     const add = () => {
         setColors(c => [...c, color]);
@@ -26,7 +35,7 @@ function Colors({ niceColors, saveUrl }) {
         <>
             <div className="my-bin">
                 {
-                    colors.map((c, i) => <div key={i} className="my-colors-square" style={{
+                    colors?.map((c, i) => <div key={i} className="my-colors-square" style={{
                         backgroundColor: c,
                         opacity: 0.7
                     }}>{c}</div>)
