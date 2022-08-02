@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\WhatController as W;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,11 @@ Route::get('/labas-b', function () {
     return view('labas');
 
 });
+
+Route::get('/colors', [W::class, 'colors']);
+Route::post('/colors', [W::class, 'addColors'])->name('save-color');
+
+
+
 
 require __DIR__.'/auth.php';

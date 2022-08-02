@@ -15,6 +15,8 @@ class CartController extends Controller
 
        $cart = session()->get('cart', []);
 
+
+
         switch(1) {
             case 1:
                 foreach ($cart as &$item) {
@@ -38,6 +40,18 @@ class CartController extends Controller
 
     public function showSmallCart()
     {
+        
+        // $a = collect();
+
+        // $a->add((object)['a' => 1, 'b' => 1]);
+        // $a->add((object)['a' => 22, 'b' => 71]);
+        
+        // session()->put('co', $a);
+        
+    //    $co = session()->get('co', collect());
+
+    //    dump($co->first()->b);
+        
         
         $cart = session()->get('cart', []);
 

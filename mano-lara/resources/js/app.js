@@ -18,6 +18,7 @@ const cartDelete = () => {
 const cartUpdate = () => {
     axios.get(mySmallCart)
         .then(res => {
+
             document.querySelector('.small--cart').innerHTML = res.data.html;
             cartDelete();
         })
@@ -25,7 +26,10 @@ const cartUpdate = () => {
 
 
 window.addEventListener('load', () => {
-    cartUpdate();
+    if (document.querySelector('.small--cart')) {
+        cartUpdate();
+    }
+
 });
 
 

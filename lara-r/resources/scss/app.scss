@@ -1,3 +1,27 @@
-// @import 'tailwind/base';
-// @import 'tailwind/components';
-// @import 'tailwind/utilities';
+@import 'tw.css';
+.my-bin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 30px;
+    .my-colors-square {
+        width: 100px;
+        height: 100px;
+        animation: App-logo-spin infinite 30s cubic-bezier(0, 1.57, 1, -1.98);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
