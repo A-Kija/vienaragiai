@@ -7,6 +7,7 @@ use App\Http\Controllers\ColorController as C;
 use App\Http\Controllers\FrontController as F;
 use App\Http\Controllers\OrderController as O;
 use App\Http\Controllers\CartController as Cart;
+use App\Http\Controllers\MasterController as M;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,13 @@ Route::delete('/animals/{animal}', [A::class, 'destroy'])->name('animals-delete'
 Route::get('/animals/show/{id}', [A::class, 'show'])->name('animals-show');
 Route::put('/animals/delete-picture/{animal}', [A::class, 'deletePicture'])->name('animals-delete-picture');
 
+//Masters
+Route::prefix('masters')->name('masters-')->group(function () {
+    Route::get('', [M::class, 'index'])->name('index')->middleware('rp:admin');
+    Route::get('edit/{master}', [M::class, 'edit'])->name('edit')->middleware('rp:admin');
+    Route::put('{master}', [M::class, 'update'])->name('update')->middleware('rp:admin');
+    Route::delete('{master}', [M::class, 'destroy'])->name('delete')->middleware('rp:admin');
+});
 
 
 Auth::routes();

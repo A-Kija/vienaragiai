@@ -5,30 +5,34 @@ function Colors({ niceColors, saveUrl }) {
 
 
     
-    const [colors, setColors] = useState(null);
+    const [colors, setColors] = useState([]);
     const [color, setColor] = useState('#00ff09');
+
+    
+    const save = () => {
+        if (null !== colors) {
+        axios.post(saveUrl, colors)
+        .then(res => console.log(res))
+        }
+    }
 
     useEffect(() => {
         setColors(niceColors);
     }, []);
 
+    
     useEffect(() => {
-        setInterval(() => {
-            if (null !== colors) {
-                save();
-            }
+        const timerId = setInterval(() => {
+            save();
         }, 4000);
-       
-    }, [colors]);
+       return () => clearInterval(timerId);
+    }, [save]);
+
 
     const add = () => {
         setColors(c => [...c, color]);
     }
 
-    const save = () => {
-        axios.post(saveUrl, colors)
-        .then(res => console.log(res))
-    }
 
 
     return (
