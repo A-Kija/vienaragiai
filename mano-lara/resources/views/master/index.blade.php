@@ -16,6 +16,15 @@
                             <div class="color-bin">
 
                                 <h2>{{$master->master_name}}</h2>
+
+                                <div>
+                                @forelse($master->skills as $skill)
+                                    <i style="color:orange;">{{$skill->skill}}</i>
+                                @empty
+                                    <i style="color:gray;">Looser, no skills at all</i>
+                                @endforelse
+
+                                </div>
                                 
                                 <div class="buttons">
                                     @if(Auth::user()->role > 9)

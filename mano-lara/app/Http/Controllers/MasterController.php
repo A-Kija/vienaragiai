@@ -16,9 +16,16 @@ class MasterController extends Controller
      */
     public function index()
     {
-        $masters = Master::all();
+        $masters = Master::orderBy('master_name')->get();
 
-        return view('master.index', ['masters' => $masters]);
+
+        $masters = $masters->sort(fn($a, $b) => $b->skills()->count() <=> $a->skills()->count());
+
+       
+        
+        return view('master.index', [
+            'masters' => $masters,
+        ]);
     }
 
     /**
@@ -63,10 +70,16 @@ class MasterController extends Controller
     {
         
         $skills = Skill::all();
+        $has = $master->skills->pluck('id')->toArray();
+
+        $skills = $skills->map(function($s) use($has) {
+            $s->has = in_array($s->id, $has);
+            return $s;
+        });
 
         return view('master.edit', [
             'master' => $master,
-            'skills' => $skills
+            'skills' => $skills,
         ]);
     }
 
@@ -80,9 +93,8 @@ class MasterController extends Controller
     public function update(Request $request, Master $master)
     {
         
+        $master->skills()->detach();
         $master->skills()->attach($request->skill);
-        
-        // dd($request->skill);
         return redirect()->back();
     }
 
@@ -94,6 +106,8 @@ class MasterController extends Controller
      */
     public function destroy(Master $master)
     {
-        //
+        $master->delete();
+
+        return redirect()->route('masters-index');
     }
 }

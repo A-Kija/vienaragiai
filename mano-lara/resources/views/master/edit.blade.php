@@ -12,7 +12,7 @@
 
                         @foreach($skills as $key => $skill)
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" value="{{$skill->id}}" name="skill[]" id="_{{$key}}">
+                            <input type="checkbox" {{$skill->has ? 'checked' : ''}} class="form-check-input" value="{{$skill->id}}" name="skill[]" id="_{{$key}}">
                             <label class="form-check-label" for="_{{$key}}">{{$skill->skill}}</label>
                         </div>
                         @endforeach
