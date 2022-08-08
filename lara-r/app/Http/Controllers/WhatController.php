@@ -13,7 +13,15 @@ class WhatController extends Controller
         
         return Inertia::render('Colors', [
             'niceColors' => $colors,
-            'saveUrl' => route('save-color')
+            'saveUrl' => route('save-color'),
+        ]);
+    }
+
+    public function cats()
+    {
+        
+        return Inertia::render('Cats', [
+            'cats' =>['Pukis', 'Pilkis', 'Juodis'],
         ]);
     }
 

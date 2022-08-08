@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function Colors({ niceColors, saveUrl }) {
+function Colors({ niceColors, saveUrl, ziggy }) {
 
 
     
@@ -54,6 +54,7 @@ function Colors({ niceColors, saveUrl }) {
             <div className="my-bin">
             <button type="button" onClick={save} className="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Save</button>
             </div>
+            <a href={ziggy.url + '/cats/' + 5}>CATS</a>
         </>
        
 

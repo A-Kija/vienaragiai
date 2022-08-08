@@ -40,6 +40,9 @@ Route::get('/labas-b', function () {
 
 Route::get('/colors', [W::class, 'colors']);
 Route::post('/colors', [W::class, 'addColors'])->name('save-color');
+Route::get('/cats/{z}', [W::class, 'cats'])->name('cats');
+
+// Route::get('/cats/', [W::class, 'cats2'])->name('cats2');
 
 
 

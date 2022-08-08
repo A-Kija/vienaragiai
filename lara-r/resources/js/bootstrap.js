@@ -1,3 +1,12 @@
+import * as bootstrap from 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// try {
+//     window.Popper = require('popper.js').default;
+//     // window.$ = window.jQuery = require('jquery');
+
+//     require('bootstrap');
+// } catch (e) {}
+
 import _ from 'lodash';
 window._ = _;
 // import * as bootstrap from 'bootstrap';
